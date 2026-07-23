@@ -1,0 +1,29 @@
+# Local builds and release binaries
+MojA1Zh/build/
+MojA1Zh/dist/
+MojA1Zh/.last-device-build-path
+*.apk
+*.aab
+
+# Signing material must never be committed
+MojA1Zh/signing/*.pem
+MojA1Zh/signing/*.p12
+MojA1Zh/signing/*.jks
+MojA1Zh/signing/*.keystore
+
+# Private reverse-engineering and device evidence
+artifacts/
+original/
+*-private/
+*.db
+*.db-shm
+*.db-wal
+
+# Tool caches
+__pycache__/
+*.py[cod]
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+

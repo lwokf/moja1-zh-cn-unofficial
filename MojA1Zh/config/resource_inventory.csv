@@ -1,0 +1,79 @@
+﻿resource_name,value
+_continue,Nastavi
+a11y_back,Natrag
+a11y_close,Zatvori
+a11y_moj_a1_dashboard_title,Početni zaslon MojA1 s pregledom usluga
+a11y_next_page,Sljedeća stranica
+a11y_precac,Prečac
+a11y_prelogin_title,Početni zaslon za prijavu u MojA1
+a11y_previous_page,Prethodna stranica
+a11y_unesite_kod_bona,Unesite kod bona
+about_a1_network,O A1 mreži
+about_application,O aplikaciji
+additional_login_options,Dodatne login opcije
+app_settings,Postavke aplikacije
+app_version,Verzija aplikacije
+avoid_confusion,Izbjegni nedoumice
+buy_token_webshop,Kupi bon u webshopu
+cancel,Odustani
+change_password,Promjena lozinke
+change_password_text,Lozinka za login u aplikaciju
+contact_information,Kontakt podaci
+contact_information_text,Telefonski brojevi i adrese
+design_develop,Dizajn i razvoj
+error.password_missing,Molimo unesi lozinku
+error.username_missing,Molimo unesi korisničko ime
+error_a11y_label,Error: invalid
+error_icon_content_description,Error
+error_internet_data,Došlo je do greške: uređaj nema pristup internetu. Potrebno ga je uključiti kako bi pristup A1 mreži bio moguć.
+error_login,Došlo je do greške prilikom logina. Molimo pokušajte ponovno kasnije.
+faq,Najčešća pitanja i odgovori
+finish,Završi
+forget_password,Zaboravljena lozinka?
+instructions_settings,Upute za korištenje
+instructions_settings_text,Upoznaj Moj A1 aplikaciju
+login,Prijavi se
+login_a1_insert_data,Unesi podatke za prijavu u aplikaciju
+login_auth_error,Došlo je do problema s autentikacijom.
+login_info_confirm,Potvrdi
+login_info_header,Zapamti moje podatke
+login_insert_data,Unesi podatke za prijavu
+login_insert_msisdn,Prijava brojem mobitela
+login_non_a1,Još nisam A1 korisnik
+login_settings,Postavke za prijavu
+login_settings_text,Lozinka i prijava otiskom prsta
+login_using_biometrics,Prijavi se putem biometrije
+login_vip_network,Prijavi se preko A1 mreže
+login_welcome,Bok!
+login_with_biometrics,Omogući prijavu pomoću biometrije
+login_with_face,Omogućiti prijavu skeniranjem lica
+login_with_fingerprint,Omogući prijavu otiskom prsta
+logout_title,Odjava
+msisdn_login_input_hint,Broj mobitela
+msisdn_login_input_placeholder,9X XXX XXXX
+msisdn_login_title,Unesi broj telefona za prijavu
+notifications_settings,Postavke notifikacija
+notifications_settings_text,Postavke sadržaja obavijesti
+ok,U redu
+onboarding_postpaid_tpo,Jednim pogledom saznaj svoju trenutnu potrošnju
+onboarding_prepay,Unaprijed plati tarifu i ostvari jos veće uštede
+onboarding_shop,Sve što trebaš pronađi u Shopu na jednome mjestu
+onboarding_switch_units,Switchanjem jedinica mijenjaj minute u gige i obrnuto
+onboarding_voucher,Obnovi račun bonom ili podijeli megabajte
+password,Lozinka
+profile,Profil
+registration,Poveži račun
+renew_token_new,Obnovi račun bonom
+scan_token,Skeniraj bon kamerom
+shop,Shop
+skip,Preskoči
+surcharge_token,Unesi bon
+system_push_notifications_settings,"Da bi se push notifikacije mogle uključiti, potrebno je u postavkama uređaja omogućiti sistemske notifikacije."
+terms_of_use,Uvjeti korištenja
+terms_of_use_text,Pravne obavijesti
+token_14_digit_token,14-znamenkasti broj s bona
+trend,Trend
+try_again,Pokušaj ponovno
+turn_on_notifications,Uključi notifikacije
+turn_on_push_notifications,Uključi push notifikacije
+username,Korisničko ime

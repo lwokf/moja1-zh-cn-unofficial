@@ -1,0 +1,46 @@
+name: Translation bug
+description: Report an untranslated or incorrectly translated Moj A1 screen
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not upload phone numbers, balances, e-mail addresses, voucher codes, account screenshots, UIAutomator XML or private logs.
+  - type: input
+    id: module-version
+    attributes:
+      label: MojA1Zh version
+      placeholder: 0.2.1-p1
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: Moj A1 version and versionCode
+      placeholder: 7.0.1 / 7010000
+    validations:
+      required: true
+  - type: textarea
+    id: screen
+    attributes:
+      label: Screen and navigation steps
+      description: Describe the page without including private account data.
+    validations:
+      required: true
+  - type: textarea
+    id: text
+    attributes:
+      label: Original and expected text
+      description: Mask all dynamic values and personal information.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I removed all personal, account and device-identifying information.
+          required: true
+
