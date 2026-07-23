@@ -1,0 +1,21 @@
+{
+  "languages": [
+    {
+      "id": "zh-CN",
+      "display_name": "????",
+      "match_tags": [
+        "zh-CN",
+        "zh-Hans-CN",
+        "zh-Hans",
+        "zh"
+      ],
+      "catalogues": [
+        "locales/zh-CN/p0.csv",
+        "locales/zh-CN/p1.csv"
+      ],
+      "aliases": "locales/zh-CN/aliases.json",
+      "patterns": "locales/zh-CN/patterns.json",
+      "glossary": "locales/zh-CN/glossary.csv"
+    }
+  ]
+}

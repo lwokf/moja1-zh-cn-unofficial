@@ -1,0 +1,60 @@
+[
+  {
+    "rule_id": "server.non_a1.page_title.trailing_space",
+    "base_key": "server.non_a1.page_title",
+    "source": "Postani A1 korisnik u par koraka ",
+    "target": "几步即可成为 A1 用户 "
+  },
+  {
+    "rule_id": "server.non_a1.appointments.content_description",
+    "base_key": "server.non_a1.appointments",
+    "source": "Pregledaj termine",
+    "target": "查看可预约时间",
+    "view_id": "simpleButton"
+  },
+  {
+    "rule_id": "server.p1.offer.content_description",
+    "base_key": "server.p1.offer",
+    "source": "Pogledaj ponudu",
+    "target": "查看套餐",
+    "view_id": "simpleButton"
+  },
+  {
+    "rule_id": "server.p1.dashboard.register.content_description",
+    "base_key": "server.p1.dashboard.register",
+    "source": "Registriraj se!",
+    "target": "注册",
+    "view_id": "simpleButton"
+  },
+  {
+    "rule_id": "server.p1.profile.change_plan.content_description",
+    "base_key": "server.p1.profile.change_plan",
+    "source": "Promijeni tarifu",
+    "target": "更换套餐",
+    "view_id": "simpleButton"
+  },
+  {
+    "rule_id": "server.p1.profile.title.trailing_space",
+    "base_key": "server.p1.profile.title",
+    "source": "Moj profil ",
+    "target": "我的资料 "
+  },
+  {
+    "rule_id": "server.p1.notifications.title.trailing_space",
+    "base_key": "server.p1.notifications.title",
+    "source": "Obavijesti ",
+    "target": "通知 "
+  },
+  {
+    "rule_id": "server.p1.notifications.empty_title.whitespace",
+    "base_key": "server.p1.notifications.empty_title",
+    "source": "\nJoš nemaš obavijesti ",
+    "target": "\n暂无通知 "
+  },
+  {
+    "rule_id": "server.p1.notifications.empty_body.newline",
+    "base_key": "server.p1.notifications.empty_body",
+    "source": "Trenutno nemaš nijednu obavijest.\nVrati se kasnije.",
+    "target": "目前没有任何通知，\n请稍后再来。"
+  }
+]

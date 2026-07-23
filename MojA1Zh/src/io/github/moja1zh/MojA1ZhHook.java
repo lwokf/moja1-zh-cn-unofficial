@@ -30,37 +30,60 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 public final class MojA1ZhHook implements IXposedHookLoadPackage {
     private static final String LOG_PREFIX = "[MojA1Zh] ";
 
-    private static final Map<String, Rule> RESOURCE_BY_NAME = new HashMap<String, Rule>();
-    private static final Map<String, Rule> LOCAL_BY_SOURCE = new HashMap<String, Rule>();
-    private static final Map<String, List<ServerRule>> SERVER_BY_SOURCE =
-            new HashMap<String, List<ServerRule>>();
-    private static final List<ServerPatternRule> SERVER_PATTERN_RULES =
-            new ArrayList<ServerPatternRule>();
+    private static final Map<String, Map<String, Rule>> RESOURCE_BY_LANGUAGE =
+            new HashMap<String, Map<String, Rule>>();
+    private static final Map<String, Map<String, Rule>> LOCAL_BY_LANGUAGE =
+            new HashMap<String, Map<String, Rule>>();
+    private static final Map<String, Map<String, List<ServerRule>>> SERVER_BY_LANGUAGE =
+            new HashMap<String, Map<String, List<ServerRule>>>();
+    private static final Map<String, List<ServerPatternRule>> PATTERNS_BY_LANGUAGE =
+            new HashMap<String, List<ServerPatternRule>>();
     private static final Set<String> LOGGED_RULES =
             Collections.synchronizedSet(new HashSet<String>());
 
     private static volatile boolean active;
+    private static volatile String activeLanguage;
     private static boolean frameworkHooksInstalled;
     private static boolean optionalHooksInstalled;
 
     static {
         for (String[] row : TranslationData.RESOURCE_RULES) {
-            RESOURCE_BY_NAME.put(row[1], new Rule(row[0], row[2]));
+            Map<String, Rule> rules = RESOURCE_BY_LANGUAGE.get(row[0]);
+            if (rules == null) {
+                rules = new HashMap<String, Rule>();
+                RESOURCE_BY_LANGUAGE.put(row[0], rules);
+            }
+            rules.put(row[2], new Rule(row[1], row[3]));
         }
         for (String[] row : TranslationData.LOCAL_EXACT_RULES) {
-            LOCAL_BY_SOURCE.put(row[1], new Rule(row[0], row[2]));
+            Map<String, Rule> rules = LOCAL_BY_LANGUAGE.get(row[0]);
+            if (rules == null) {
+                rules = new HashMap<String, Rule>();
+                LOCAL_BY_LANGUAGE.put(row[0], rules);
+            }
+            rules.put(row[2], new Rule(row[1], row[3]));
         }
         for (String[] row : TranslationData.SERVER_EXACT_RULES) {
-            List<ServerRule> rules = SERVER_BY_SOURCE.get(row[1]);
+            Map<String, List<ServerRule>> bySource = SERVER_BY_LANGUAGE.get(row[0]);
+            if (bySource == null) {
+                bySource = new HashMap<String, List<ServerRule>>();
+                SERVER_BY_LANGUAGE.put(row[0], bySource);
+            }
+            List<ServerRule> rules = bySource.get(row[2]);
             if (rules == null) {
                 rules = new ArrayList<ServerRule>();
-                SERVER_BY_SOURCE.put(row[1], rules);
+                bySource.put(row[2], rules);
             }
-            rules.add(new ServerRule(row[0], row[2], row[3], row[4]));
+            rules.add(new ServerRule(row[1], row[3], row[4], row[5]));
         }
         for (String[] row : TranslationData.SERVER_PATTERN_RULES) {
-            SERVER_PATTERN_RULES.add(new ServerPatternRule(
-                    row[0], Pattern.compile(row[1]), row[2], row[3], row[4]));
+            List<ServerPatternRule> rules = PATTERNS_BY_LANGUAGE.get(row[0]);
+            if (rules == null) {
+                rules = new ArrayList<ServerPatternRule>();
+                PATTERNS_BY_LANGUAGE.put(row[0], rules);
+            }
+            rules.add(new ServerPatternRule(
+                    row[1], Pattern.compile(row[2]), row[3], row[4], row[5]));
         }
     }
 
@@ -137,6 +160,7 @@ public final class MojA1ZhHook implements IXposedHookLoadPackage {
 
     private static void evaluateGate(Context context) {
         active = false;
+        activeLanguage = null;
         try {
             if (!TranslationData.TARGET_PACKAGE.equals(context.getPackageName())) {
                 log("gate=disabled reason=package");
@@ -151,29 +175,38 @@ public final class MojA1ZhHook implements IXposedHookLoadPackage {
             if (locale == null) {
                 locale = Locale.getDefault();
             }
-            if (!isEnabledLanguage(locale == null ? null : locale.getLanguage())) {
+            String language = resolveLanguage(locale);
+            if (language == null) {
                 log("gate=disabled reason=locale");
                 return;
             }
+            activeLanguage = language;
             active = true;
             log("gate=enabled version=" + info.versionCode + " catalogue="
-                    + TranslationData.CATALOGUE_SHA256.substring(0, 12));
+                    + TranslationData.CATALOGUE_SHA256.substring(0, 12)
+                    + " language=" + language);
         } catch (Throwable error) {
             active = false;
+            activeLanguage = null;
             logFailure("gate", error);
         }
     }
 
-    private static boolean isEnabledLanguage(String language) {
-        if (language == null) {
-            return false;
+    private static String resolveLanguage(Locale locale) {
+        if (locale == null) {
+            return null;
         }
-        for (String enabled : TranslationData.ENABLED_LANGUAGES) {
-            if (enabled.equalsIgnoreCase(language)) {
-                return true;
+        String tag = locale.toLanguageTag();
+        if (tag == null || tag.length() == 0) {
+            return null;
+        }
+        tag = tag.replace('_', '-').toLowerCase(Locale.US);
+        for (String[] row : TranslationData.LANGUAGE_MATCH_RULES) {
+            if (row[1].equals(tag)) {
+                return row[0];
             }
         }
-        return false;
+        return null;
     }
 
     private static void replaceResourceResult(XC_MethodHook.MethodHookParam param, boolean format) {
@@ -184,14 +217,19 @@ public final class MojA1ZhHook implements IXposedHookLoadPackage {
         try {
             Resources resources = (Resources) param.thisObject;
             int id = ((Integer) param.args[0]).intValue();
-            Rule rule = findResourceRule(resources, id);
+            String language = activeLanguage;
+            if (language == null) {
+                return;
+            }
+            Rule rule = findResourceRule(resources, id, language);
             if (rule == null) {
                 return;
             }
             String translated = rule.target;
             if (format && param.args.length > 1 && param.args[1] instanceof Object[]) {
                 try {
-                    translated = String.format(Locale.CHINA, translated, (Object[]) param.args[1]);
+                    translated = String.format(
+                            Locale.forLanguageTag(language), translated, (Object[]) param.args[1]);
                 } catch (Throwable error) {
                     logFailure("format." + rule.id, error);
                     return;
@@ -204,12 +242,16 @@ public final class MojA1ZhHook implements IXposedHookLoadPackage {
         }
     }
 
-    private static Rule findResourceRule(Resources resources, int id) {
+    private static Rule findResourceRule(Resources resources, int id, String language) {
         try {
             if (!TranslationData.TARGET_PACKAGE.equals(resources.getResourcePackageName(id))) {
                 return null;
             }
-            return RESOURCE_BY_NAME.get(resources.getResourceEntryName(id));
+            Map<String, Rule> rules = RESOURCE_BY_LANGUAGE.get(language);
+            if (rules == null) {
+                return null;
+            }
+            return rules.get(resources.getResourceEntryName(id));
         } catch (Resources.NotFoundException ignored) {
             return null;
         }
@@ -219,7 +261,15 @@ public final class MojA1ZhHook implements IXposedHookLoadPackage {
         if (value == null || value instanceof Spanned) {
             return null;
         }
-        Rule rule = LOCAL_BY_SOURCE.get(value.toString());
+        String language = activeLanguage;
+        if (language == null) {
+            return null;
+        }
+        Map<String, Rule> rules = LOCAL_BY_LANGUAGE.get(language);
+        if (rules == null) {
+            return null;
+        }
+        Rule rule = rules.get(value.toString());
         if (rule == null) {
             return null;
         }
@@ -234,9 +284,16 @@ public final class MojA1ZhHook implements IXposedHookLoadPackage {
         if (view == null || value == null) {
             return null;
         }
+        String language = activeLanguage;
+        if (language == null) {
+            return null;
+        }
         String source = value.toString();
-        List<ServerRule> candidates = SERVER_BY_SOURCE.get(source);
-        if ((candidates == null || candidates.isEmpty()) && SERVER_PATTERN_RULES.isEmpty()) {
+        Map<String, List<ServerRule>> bySource = SERVER_BY_LANGUAGE.get(language);
+        List<ServerRule> candidates = bySource == null ? null : bySource.get(source);
+        List<ServerPatternRule> patternRules = PATTERNS_BY_LANGUAGE.get(language);
+        if ((candidates == null || candidates.isEmpty())
+                && (patternRules == null || patternRules.isEmpty())) {
             return null;
         }
         Activity activity = findActivity(view.getContext());
@@ -256,19 +313,21 @@ public final class MojA1ZhHook implements IXposedHookLoadPackage {
                 }
             }
         }
-        for (ServerPatternRule rule : SERVER_PATTERN_RULES) {
-            if (!rule.activity.equals(activityName) || !rule.viewName.equals(viewName)) {
-                continue;
-            }
-            Matcher matcher = rule.pattern.matcher(source);
-            if (matcher.matches()) {
-                try {
-                    String translated = matcher.replaceFirst(rule.replacement);
-                    logHit(rule.id);
-                    return translated;
-                } catch (Throwable error) {
-                    logFailure("pattern." + rule.id, error);
-                    return null;
+        if (patternRules != null) {
+            for (ServerPatternRule rule : patternRules) {
+                if (!rule.activity.equals(activityName) || !rule.viewName.equals(viewName)) {
+                    continue;
+                }
+                Matcher matcher = rule.pattern.matcher(source);
+                if (matcher.matches()) {
+                    try {
+                        String translated = matcher.replaceFirst(rule.replacement);
+                        logHit(rule.id);
+                        return translated;
+                    } catch (Throwable error) {
+                        logFailure("pattern." + rule.id, error);
+                        return null;
+                    }
                 }
             }
         }

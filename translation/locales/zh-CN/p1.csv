@@ -1,4 +1,4 @@
-"priority","source_type","key","screen","source_hr","target_zh_CN","match_policy","status","notes","activity","view_id"
+﻿"priority","source_type","key","screen","source_hr","target","match_policy","status","notes","activity","view_id"
 "P1","android_resource","a11y_precac","main","Prečac","快捷操作","resource_name","draft","主界面快捷操作按钮","",""
 "P1","android_resource","a11y_moj_a1_dashboard_title","dashboard","Početni zaslon MojA1 s pregledom usluga","Moj A1 服务概览首页","resource_name","draft","TalkBack 页面标题","",""
 "P1","android_resource","trend","navigation","Trend","趋势","resource_name","draft","底部导航","",""

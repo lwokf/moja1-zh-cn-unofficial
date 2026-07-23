@@ -10,7 +10,7 @@ From the repository root:
 python MojA1Zh/tools/generate_translations.py
 ```
 
-The generator validates catalogue columns, duplicate keys, format placeholders, resource names, source values, server contexts and regular expressions, then writes `MojA1Zh/generated/src/io/github/moja1zh/TranslationData.java`.
+The generator reads `translation/languages.json`, validates every locale bundle, and writes `MojA1Zh/generated/src/io/github/moja1zh/TranslationData.java`.
 
 ## Build the APK in Termux
 
@@ -36,4 +36,3 @@ python MojA1Zh/tools/sign_v1.py `
 If no key pair exists, the helper creates one under `MojA1Zh/signing/`. These files are ignored by Git and must remain private. Locally signed builds cannot update the official project release unless they use the same private key.
 
 Release APKs are signed offline by the maintainer. The private release key is not stored in this repository or GitHub Actions.
-

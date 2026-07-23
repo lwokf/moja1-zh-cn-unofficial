@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0 - 2026-07-24
+
+- Refactored the module into a runtime-selectable multilingual architecture.
+- Added exact BCP 47 locale-to-bundle matching.
+- Moved catalogues, aliases, patterns and glossaries into locale directories.
+- Added incomplete-language support: blank targets safely retain original text.
+- Added structural validation across all language bundles.
+- Added a language scaffolding tool and contributor guide.
+- Kept the existing Simplified Chinese output and safety gates unchanged.
+
 ## 0.2.1-p1 - 2026-07-24
 
 - Added logged-in secondary and tertiary page translations.
@@ -16,4 +26,3 @@
 ## 0.1.1-p0 - 2026-07-23
 
 - Initial pre-login localization release.
-

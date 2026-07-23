@@ -1,4 +1,4 @@
-﻿"priority","source_type","key","screen","source_hr","target_zh_CN","match_policy","status","notes"
+﻿"priority","source_type","key","screen","source_hr","target","match_policy","status","notes"
 "P0","android_resource","_continue","common","Nastavi","继续","resource_name","draft","通用按钮"
 "P0","android_resource","a11y_back","common","Natrag","返回","resource_name","draft","无障碍标签；不替换可见用户输入"
 "P0","android_resource","a11y_close","common","Zatvori","关闭","resource_name","draft","无障碍标签"

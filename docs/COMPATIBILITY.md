@@ -2,7 +2,7 @@
 
 ## Application gate
 
-The current release activates only for package/process `hr.infinum.mojvip`, Moj A1 versionCode `7010000`, and a Chinese system language. If any gate fails, the module leaves the application unchanged.
+The current release activates only for package/process `hr.infinum.mojvip`, Moj A1 versionCode `7010000`, and a Locale tag listed in `translation/languages.json`. If any gate fails, the module leaves the application unchanged.
 
 ## Translation layers
 
@@ -20,4 +20,3 @@ Any exception is fail-open and retains the original text.
 - Numbers and dynamic account values are captured and reinserted unchanged.
 - Network traffic, authentication and application data are not modified.
 - WebView DOM content is not injected in the current release.
-

@@ -1,0 +1,26 @@
+name: Validate language bundles
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate multilingual data
+        run: python MojA1Zh/tools/generate_translations.py
+      - name: Check generated file is committed
+        run: git diff --exit-code -- MojA1Zh/generated/src/io/github/moja1zh/TranslationData.java
+      - name: Test language scaffolding
+        run: python tools/test_multilanguage.py
+      - name: Audit public repository
+        run: python tools/audit_public_repo.py
+

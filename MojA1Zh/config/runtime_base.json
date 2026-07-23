@@ -1,0 +1,47 @@
+{
+  "target_package": "hr.infinum.mojvip",
+  "target_process": "hr.infinum.mojvip",
+  "target_version_code": 7010000,
+  "server_context": {
+    "server.non_a1.page_title": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "titleLabel"
+    },
+    "server.non_a1.install_title": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "h3Label"
+    },
+    "server.non_a1.install_body": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "bodyLabel"
+    },
+    "server.non_a1.appointments": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "label"
+    },
+    "server.non_a1.mobile_title": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "titleLabel"
+    },
+    "server.non_a1.mobile_subtitle": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "subtitleLabel"
+    },
+    "server.non_a1.fixed_title": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "titleLabel"
+    },
+    "server.non_a1.fixed_subtitle": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "subtitleLabel"
+    },
+    "server.non_a1.new_line_title": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "titleLabel"
+    },
+    "server.non_a1.new_line_subtitle": {
+      "activity": "hr.infinum.mojvip.ui.shared.generic.GenericActivity",
+      "view_id": "subtitleLabel"
+    }
+  }
+}

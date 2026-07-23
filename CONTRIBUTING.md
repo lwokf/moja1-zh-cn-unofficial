@@ -2,6 +2,8 @@
 
 Contributions to translations, compatibility rules and documentation are welcome.
 
+To add another locale, start with [docs/ADDING_LANGUAGE.md](docs/ADDING_LANGUAGE.md) or run `python tools/scaffold_language.py`.
+
 ## Translation rules
 
 - Preserve amounts, phone numbers, dates, currency codes, GB/MB values, minutes and product identifiers.
@@ -19,5 +21,5 @@ Run the public-repository audit before submitting a pull request:
 
 ```powershell
 python tools/audit_public_repo.py
+python tools/test_multilanguage.py
 ```
-
