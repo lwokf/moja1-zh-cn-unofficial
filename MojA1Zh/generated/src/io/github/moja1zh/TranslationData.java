@@ -5,8 +5,8 @@ final class TranslationData {
     static final String TARGET_PACKAGE = "hr.infinum.mojvip";
     static final String TARGET_PROCESS = "hr.infinum.mojvip";
     static final int TARGET_VERSION_CODE = 7010000;
-    static final String CATALOGUE_SHA256 = "8BF0E264D9A5C3B099F09261BF4E87D0D9F565D300A1B8BCE8F5B4BCCD4C2A68";
-    static final String CONFIG_SHA256 = "C7252B54E5E110FD20AC580DFE60E76970335C92B49840722E9C9A263934DFBC";
+    static final String CATALOGUE_SHA256 = "8947825B6F225233887E5C80409C06450B24A09A8C3798337B94540DFB1B1790";
+    static final String CONFIG_SHA256 = "C126CF21907BEDBC20BA708AA641D9543F5E92BF9FE208377564DA6743ED8D4F";
 
     // language bundle id, normalized Android locale tag
     static final String[][] LANGUAGE_MATCH_RULES = new String[][] {

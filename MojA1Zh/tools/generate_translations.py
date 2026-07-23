@@ -21,8 +21,15 @@ STRUCTURE_COLUMNS = (
 )
 
 
+def normalized_bytes(path: Path) -> bytes:
+    if path.suffix.lower() in {".csv", ".json", ".txt", ".md"}:
+        text = path.read_text(encoding="utf-8-sig")
+        return text.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+    return path.read_bytes()
+
+
 def digest(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest().upper()
+    return hashlib.sha256(normalized_bytes(path)).hexdigest().upper()
 
 
 def digest_many(paths: list[Path], root: Path) -> str:
@@ -34,7 +41,7 @@ def digest_many(paths: list[Path], root: Path) -> str:
             label = path.name
         value.update(label.encode("utf-8"))
         value.update(b"\0")
-        value.update(path.read_bytes())
+        value.update(normalized_bytes(path))
         value.update(b"\0")
     return value.hexdigest().upper()
 
