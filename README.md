@@ -6,7 +6,7 @@
 
 ## 当前版本
 
-- 模块：`MojA1Zh 0.3.0`（versionCode `5`）
+- 模块：`MojA1Zh 0.3.1`（versionCode `6`）
 - 目标应用：Moj A1 `7.0.1`（versionCode `7010000`）
 - 内置语言：简体中文（`zh-CN`）
 - 运行环境：Android 24+、LSPosed API 93+

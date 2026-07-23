@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1 - 2026-07-24
+
+- Normalized catalogue and configuration hashing across Windows and Linux.
+- Ensured GitHub Actions reproduces the committed multilingual data exactly.
+
 ## 0.3.0 - 2026-07-24
 
 - Refactored the module into a runtime-selectable multilingual architecture.
